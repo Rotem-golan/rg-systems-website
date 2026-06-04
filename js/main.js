@@ -170,7 +170,7 @@ document.querySelectorAll('.reveal').forEach(el => {
 
   const VIDEOS = {
     dark:  'assets/RG Systems - Dark mode.mp4',
-    light: 'assets/RG Systems.mov',
+    light: 'assets/RG Systems - Light mode.mp4',
   };
 
   function applyTheme(theme, animate) {
