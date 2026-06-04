@@ -49,22 +49,25 @@
     }, 200);   // hold on last frame
   }
 
-  // Fallback: if intro hasn't finished within 6s (mobile autoplay blocked), skip
-  const fallbackTimer = setTimeout(skip, 6000);
-
-  function endIntroOnce() {
-    clearTimeout(fallbackTimer);
-    endIntro();
-  }
-
-  video.addEventListener('ended', endIntroOnce);
-  video.addEventListener('error', skip);
   overlay.addEventListener('click', skip);
 
-  // If video doesn't start playing within 1.5s (mobile block), skip immediately
-  setTimeout(() => {
-    if (video.paused && video.currentTime === 0) skip();
-  }, 1500);
+  // Use play() Promise — if autoplay is blocked (mobile), skip immediately
+  const playPromise = video.play();
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        const fallback = setTimeout(skip, 8000);
+        video.addEventListener('ended', () => { clearTimeout(fallback); endIntro(); });
+        video.addEventListener('error', () => { clearTimeout(fallback); skip(); });
+      })
+      .catch(() => {
+        skip();
+      });
+  } else {
+    video.addEventListener('ended', endIntro);
+    video.addEventListener('error', skip);
+    setTimeout(skip, 8000);
+  }
 })();
 
 // Sticky nav shadow
