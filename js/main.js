@@ -8,10 +8,10 @@
   document.body.style.overflow = 'hidden';
 
   function skip() {
-    overlay.style.transition = 'opacity 0.5s ease';
-    overlay.style.opacity    = '0';
+    overlay.style.transition = 'none';
+    overlay.style.display    = 'none';
     document.body.style.overflow = '';
-    setTimeout(() => overlay.remove(), 500);
+    overlay.remove();
   }
 
   function endIntro() {
@@ -51,7 +51,16 @@
 
   overlay.addEventListener('click', skip);
 
-  // Use play() Promise — if autoplay is blocked (mobile), skip immediately
+  // Step 1: Mobile — skip intro entirely, no animation
+  if (navigator.maxTouchPoints > 0) {
+    overlay.style.transition = 'none';
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    overlay.remove();
+    return;
+  }
+
+  // Step 2: Desktop — use play() Promise
   const playPromise = video.play();
   if (playPromise !== undefined) {
     playPromise
@@ -60,9 +69,7 @@
         video.addEventListener('ended', () => { clearTimeout(fallback); endIntro(); });
         video.addEventListener('error', () => { clearTimeout(fallback); skip(); });
       })
-      .catch(() => {
-        skip();
-      });
+      .catch(() => skip());
   } else {
     video.addEventListener('ended', endIntro);
     video.addEventListener('error', skip);
