@@ -192,8 +192,8 @@ document.querySelectorAll('.reveal').forEach(el => {
   if (!btn || !bgVideo) return;
 
   const VIDEOS = {
-    dark:  'assets/RG Systems - Dark mode.mp4',
-    light: 'assets/RG Systems - Light mode.mp4',
+    dark:  'assets/rg-dark.mp4',
+    light: 'assets/rg-light.mp4',
   };
 
   function applyTheme(theme, animate) {
