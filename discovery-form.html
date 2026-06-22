@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,18 +7,93 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: 'Segoe UI', 'Arial', sans-serif;
-      background: #080808;
-      color: #f0efe8;
-      min-height: 100vh;
-      padding: 40px 20px 80px;
+    /* ---- Theme variables ---- */
+    :root {
+      --f-bg:          #080808;
+      --f-text:        #f0efe8;
+      --f-muted:       #6b6b60;
+      --f-label:       #d4d4c8;
+      --f-input-bg:    #0f0f0a;
+      --f-border:      #1e1a0a;
+      --f-placeholder: #2e2e24;
+      --f-line:        #1a1608;
+      --f-cb-hover:    #141208;
+      --f-note:        #3a3a30;
+      --f-footer:      #2a2a20;
+      --f-back:        #6b6b60;
+      --f-err-bg:      #150a0a;
+      --f-err-border:  #8a3030;
+      --f-err-text:    #c06060;
+      --gold:          #c9a84c;
     }
 
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
+    [data-theme="light"] {
+      --f-bg:          #f2efe6;
+      --f-text:        #1a1a14;
+      --f-muted:       #6b6660;
+      --f-label:       #2a2a24;
+      --f-input-bg:    #ffffff;
+      --f-border:      #d4d0c4;
+      --f-placeholder: #aaa898;
+      --f-line:        #d4d0c4;
+      --f-cb-hover:    #f5f3ed;
+      --f-note:        #8a8870;
+      --f-footer:      #9a9880;
+      --f-back:        #8a8870;
+      --f-err-bg:      #fef2f2;
+      --f-err-border:  #c06060;
+      --f-err-text:    #8a3030;
     }
+
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      background: var(--f-bg);
+      color: var(--f-text);
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .container { max-width: 680px; margin: 0 auto; }
+
+    /* Top bar: back link + theme toggle */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--f-back);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--gold); }
+    .back-link svg { flex-shrink: 0; }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--f-border);
+      border-radius: 8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      color: var(--f-muted);
+      display: flex;
+      align-items: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+
+    [data-theme="dark"]  .icon-sun  { display: block; }
+    [data-theme="dark"]  .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun  { display: none; }
+    [data-theme="light"] .icon-moon { display: block; }
 
     /* Header */
     .header {
@@ -31,91 +106,72 @@
       display: flex;
       justify-content: center;
     }
-    .logo img {
-      height: 90px;
-      width: auto;
-    }
+    .logo img { height: 80px; width: auto; }
 
     .header h1 {
-      font-size: 34px;
+      font-size: 32px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--f-text);
       margin-bottom: 12px;
       line-height: 1.3;
     }
 
     .header p {
       font-size: 15px;
-      color: #6b6b60;
+      color: var(--f-muted);
       line-height: 1.7;
-      max-width: 500px;
+      max-width: 480px;
       margin: 0 auto;
     }
 
     .divider {
       width: 40px;
       height: 2px;
-      background: #c9a84c;
-      margin: 22px auto;
+      background: var(--gold);
+      margin: 20px auto;
       border-radius: 1px;
     }
 
     .header-note {
-      margin-top: 18px;
+      margin-top: 16px;
       font-size: 12px;
       font-weight: 600;
-      color: #c9a84c;
+      color: var(--gold);
       letter-spacing: 0.03em;
     }
 
     /* Section */
-    .section {
-      margin-bottom: 40px;
-    }
+    .section { margin-bottom: 36px; }
 
     .section-label {
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #c9a84c;
+      color: var(--gold);
       margin-bottom: 20px;
       display: flex;
       align-items: center;
       gap: 12px;
     }
-
     .section-label::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: #1a1608;
+      background: var(--f-line);
     }
 
     /* Field */
-    .field {
-      margin-bottom: 20px;
-    }
+    .field { margin-bottom: 18px; }
 
     label {
       display: block;
       font-size: 14px;
       font-weight: 600;
-      color: #d4d4c8;
+      color: var(--f-label);
       margin-bottom: 8px;
     }
-
-    label .required {
-      color: #c9a84c;
-      margin-left: 3px;
-    }
-
-    label .hint {
-      font-weight: 400;
-      color: #4a4a40;
-      font-size: 12px;
-      margin-left: 6px;
-    }
+    label .required { color: var(--gold); margin-left: 3px; }
 
     input[type="text"],
     input[type="email"],
@@ -123,31 +179,26 @@
     select,
     textarea {
       width: 100%;
-      background: #0f0f0a;
-      border: 1px solid #1e1a0a;
+      background: var(--f-input-bg);
+      border: 1px solid var(--f-border);
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 13px 16px;
       font-size: 15px;
-      color: #f0efe8;
+      color: var(--f-text);
       font-family: inherit;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.25s, color 0.25s;
       outline: none;
       direction: ltr;
     }
-
     input[type="text"]:focus,
     input[type="email"]:focus,
     input[type="tel"]:focus,
     select:focus,
     textarea:focus {
-      border-color: #c9a84c;
+      border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
     }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #2e2e24;
-    }
+    input::placeholder, textarea::placeholder { color: var(--f-placeholder); }
 
     select {
       appearance: none;
@@ -157,50 +208,7 @@
       background-position: right 16px center;
       padding-right: 40px;
     }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-      line-height: 1.6;
-    }
-
-    /* Checkboxes */
-    .checkbox-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #0f0f0a;
-      border: 1px solid #1e1a0a;
-      border-radius: 8px;
-      padding: 12px 14px;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      user-select: none;
-    }
-
-    .checkbox-item:hover {
-      border-color: #c9a84c;
-      background: #141208;
-    }
-
-    .checkbox-item input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      accent-color: #c9a84c;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .checkbox-item span {
-      font-size: 14px;
-      color: #d4d4c8;
-    }
+    textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
 
     /* Two-col row */
     .row-2 {
@@ -211,44 +219,36 @@
 
     /* Submit */
     .submit-section {
-      margin-top: 48px;
+      margin-top: 44px;
       text-align: center;
     }
-
     .submit-note {
       font-size: 13px;
-      color: #3a3a30;
+      color: var(--f-note);
       margin-bottom: 20px;
     }
-
     button[type="submit"] {
-      background: #c9a84c;
+      background: var(--gold);
       color: #080808;
       border: none;
-      border-radius: 10px;
+      border-radius: 6px;
       padding: 16px 52px;
       font-size: 15px;
-      font-weight: 800;
+      font-weight: 700;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
       letter-spacing: 0.5px;
     }
-
-    button[type="submit"]:hover {
-      background: #e8c96a;
-      transform: translateY(-1px);
-    }
-
-    button[type="submit"]:active {
-      transform: translateY(0);
-    }
-
+    button[type="submit"]:hover  { background: #e8c96a; transform: translateY(-1px); }
+    button[type="submit"]:active { transform: translateY(0); }
     button[type="submit"]:disabled {
-      background: #2a2010;
-      color: #5a5040;
+      background: var(--f-border);
+      color: var(--f-muted);
       cursor: not-allowed;
       transform: none;
     }
+    [data-theme="light"] button[type="submit"] { background: #5C4A0E; color: #ffffff; }
+    [data-theme="light"] button[type="submit"]:hover { background: #4a3a08; }
 
     /* Success */
     .success-screen {
@@ -256,71 +256,40 @@
       text-align: center;
       padding: 60px 20px;
     }
-
     .success-icon {
-      width: 64px;
-      height: 64px;
-      border: 2px solid #c9a84c;
+      width: 64px; height: 64px;
+      border: 2px solid var(--gold);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin: 0 auto 24px;
-      font-size: 28px;
-      color: #c9a84c;
+      font-size: 28px; color: var(--gold);
     }
-
-    .success-screen h2 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-
-    .success-screen p {
-      color: #6b6b60;
-      font-size: 16px;
-      line-height: 1.7;
-    }
+    .success-screen h2 { font-size: 26px; font-weight: 700; color: var(--f-text); margin-bottom: 12px; }
+    .success-screen p  { color: var(--f-muted); font-size: 16px; line-height: 1.7; }
 
     /* Error */
     .error-msg {
       display: none;
-      background: #150a0a;
-      border: 1px solid #8a3030;
+      background: var(--f-err-bg);
+      border: 1px solid var(--f-err-border);
       border-radius: 8px;
       padding: 12px 16px;
-      color: #c06060;
+      color: var(--f-err-text);
       font-size: 13px;
       margin-top: 12px;
     }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #6b6b60;
-      text-decoration: none;
-      margin-bottom: 36px;
-      transition: color 0.2s;
-    }
-    .back-link:hover { color: #c9a84c; }
-    .back-link svg { flex-shrink: 0; }
 
     .footer {
       text-align: center;
       margin-top: 60px;
       font-size: 11px;
-      color: #2a2a20;
+      color: var(--f-footer);
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
     @media (max-width: 600px) {
       .row-2 { grid-template-columns: 1fr; }
-      .checkbox-grid { grid-template-columns: 1fr; }
       .header h1 { font-size: 26px; }
     }
   </style>
@@ -328,70 +297,63 @@
 <body>
   <div class="container">
 
-    <a href="index.html" class="back-link">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to RG Systems
-    </a>
+    <div class="top-bar">
+      <a href="index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to RG Systems
+      </a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
 
     <div class="header">
       <div class="logo"><img src="assets/logo.png" alt="RG Systems"></div>
       <h1>Tell us what's broken.</h1>
       <div class="divider"></div>
-      <p>We read every answer personally. The more honest you are about what's not working, the more specific and useful your free audit will be. No pitch deck. Just a real plan built around your actual problems.</p>
-      <p class="header-note">Your contact details are at the end. Start with what actually matters.</p>
+      <p>We read every answer personally. The more honest you are, the more specific and useful your free audit will be.</p>
+      <p class="header-note">3 short sections &nbsp;·&nbsp; 5 minutes</p>
     </div>
 
     <form id="discoveryForm">
 
-      <!-- Section 1: Pain first -->
+      <!-- Section 1: Pain -->
       <div class="section">
         <div class="section-label">01 · Where It Hurts</div>
 
         <div class="field">
           <label>What is eating your time the most right now? <span class="required">*</span></label>
-          <textarea name="time_sink" placeholder="Be specific. Updating spreadsheets manually? Chasing leads? Answering the same questions every day? Copy-pasting data between systems?" required></textarea>
+          <textarea name="time_sink" placeholder="Be specific. Updating spreadsheets manually? Chasing leads? Answering the same questions every day?" required></textarea>
         </div>
 
         <div class="field">
           <label>If you could fix one thing in your business tomorrow, what would it be? <span class="required">*</span></label>
-          <textarea name="biggest_frustration" placeholder="Don't overthink it. What is the thing that costs you the most time, money, or energy right now?" required></textarea>
+          <textarea name="biggest_frustration" placeholder="What costs you the most time, money, or energy right now?" required></textarea>
         </div>
 
         <div class="field">
-          <label>Is there a process you know is broken but have not fixed yet?</label>
-          <textarea name="broken_process" placeholder="Something everyone on the team works around, or that falls through the cracks regularly..."></textarea>
+          <label>When a new lead or inquiry comes in, what actually happens next?</label>
+          <textarea name="lead_process" placeholder="Walk us through the steps. Who gets notified? What do they do? How long does it take? Where do things fall through the cracks?"></textarea>
         </div>
 
         <div class="field">
-          <label>How many hours per week do you estimate you spend on work that could be automated?</label>
-          <select name="manual_hours_weekly">
-            <option value="" disabled selected>Select range</option>
-            <option value="1-3">1 to 3 hours</option>
-            <option value="3-7">3 to 7 hours</option>
-            <option value="7-15">7 to 15 hours</option>
-            <option value="15+">15+ hours — way too many</option>
-          </select>
+          <label>What is the most repetitive task your team does every single week?</label>
+          <textarea name="repetitive_task" placeholder="The thing that gets done over and over, manually, even though everyone knows it should be automatic by now."></textarea>
         </div>
       </div>
 
-      <!-- Section 2: Aspirations -->
+      <!-- Section 2: Business context -->
       <div class="section">
-        <div class="section-label">02 · Where You Want to Go</div>
-
-        <div class="field">
-          <label>What does success look like for you in the next 3 months? <span class="required">*</span></label>
-          <textarea name="success_definition" placeholder="Be specific. What will actually be different in your day-to-day? What will you stop doing? What will finally work?" required></textarea>
-        </div>
-
-        <div class="field">
-          <label>If we gave you back 10 hours a week, what would you do with that time?</label>
-          <textarea name="time_investment" placeholder="More sales calls? Focus on clients? Actually take a weekend off?"></textarea>
-        </div>
-      </div>
-
-      <!-- Section 3: Business context -->
-      <div class="section">
-        <div class="section-label">03 · Your Business</div>
+        <div class="section-label">02 · Your Business</div>
 
         <div class="field">
           <label>Describe what you do in one sentence <span class="required">*</span></label>
@@ -428,97 +390,11 @@
             </select>
           </div>
         </div>
-
-        <div class="field">
-          <label>How many new leads / customers do you receive per month?</label>
-          <select name="monthly_leads">
-            <option value="" disabled selected>Select range</option>
-            <option value="0-20">Under 20</option>
-            <option value="20-50">20 to 50</option>
-            <option value="50-150">50 to 150</option>
-            <option value="150-500">150 to 500</option>
-            <option value="500+">500+</option>
-          </select>
-        </div>
       </div>
 
-      <!-- Section 4: Tools -->
+      <!-- Section 3: Contact -->
       <div class="section">
-        <div class="section-label">04 · Your Tools</div>
-
-        <div class="field">
-          <label>Which tools are you currently using? <span class="hint">(check all that apply)</span></label>
-          <div class="checkbox-grid">
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="google_workspace" />
-              <span>Google Workspace</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="whatsapp_business" />
-              <span>WhatsApp Business</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="excel_sheets" />
-              <span>Excel / Google Sheets</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="crm" />
-              <span>CRM (Salesforce, HubSpot...)</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="facebook_ads" />
-              <span>Facebook / Instagram Ads</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="woocommerce_shopify" />
-              <span>WooCommerce / Shopify</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="trello_monday" />
-              <span>Trello / Monday / Asana</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" name="tools" value="zapier_make" />
-              <span>Zapier / Make</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label>Any other tools not listed above?</label>
-          <input type="text" name="other_tools" placeholder="Add any other tools you use..." />
-        </div>
-      </div>
-
-      <!-- Section 5: Automation experience -->
-      <div class="section">
-        <div class="section-label">05 · Automation Experience</div>
-
-        <div class="field">
-          <label>Have you tried automation before?</label>
-          <select name="automation_experience">
-            <option value="" disabled selected>Select</option>
-            <option value="never">No, this is completely new to me</option>
-            <option value="basic">Tried something basic (Zapier, IFTTT...)</option>
-            <option value="some">I have a few automations running</option>
-            <option value="advanced">Yes, I have complex systems in place</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Who on your team will be using the new systems?</label>
-          <input type="text" name="system_users" placeholder="e.g. Me and two sales reps" />
-        </div>
-
-        <div class="field">
-          <label>Anything else we should know before we talk?</label>
-          <textarea name="additional_info" placeholder="Constraints, past attempts, things you've already tried, questions you want answered on the call..."></textarea>
-        </div>
-      </div>
-
-      <!-- Section 6: Contact last -->
-      <div class="section">
-        <div class="section-label">06 · Last Thing — How to Reach You</div>
+        <div class="section-label">03 · How to Reach You</div>
 
         <div class="row-2">
           <div class="field">
@@ -526,14 +402,9 @@
             <input type="text" name="full_name" placeholder="John Smith" required />
           </div>
           <div class="field">
-            <label>Your Role</label>
-            <input type="text" name="role" placeholder="CEO, Owner, Operations Manager..." />
+            <label>Business Name <span class="required">*</span></label>
+            <input type="text" name="business_name" placeholder="Company name" required />
           </div>
-        </div>
-
-        <div class="field">
-          <label>Business Name <span class="required">*</span></label>
-          <input type="text" name="business_name" placeholder="Company name" required />
         </div>
 
         <div class="row-2">
@@ -550,7 +421,7 @@
 
       <!-- Submit -->
       <div class="submit-section">
-        <p class="submit-note">Rotem reads every submission personally and will be in touch within 24 hours with a specific breakdown for your business.</p>
+        <p class="submit-note">Rotem reads every submission personally and will be in touch within 24 hours.</p>
         <button type="submit" id="submitBtn">Send My Answers</button>
         <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email us directly.</div>
       </div>
@@ -561,41 +432,52 @@
     <div class="success-screen" id="successScreen">
       <div class="success-icon">✓</div>
       <h2>Got it!</h2>
-      <p>Thank you for taking the time to fill this out.<br />Rotem will get back to you within 24 hours with an initial breakdown.</p>
+      <p>Thank you for taking the time to fill this out.<br />Rotem will get back to you within 24 hours.</p>
     </div>
 
     <div class="footer">RG Systems &nbsp;·&nbsp; rotemgol96@gmail.com</div>
   </div>
 
   <script>
+    // ---- Skip intro when navigating back to homepage ----
+    document.querySelector('.back-link').addEventListener('click', () => {
+      sessionStorage.setItem('rg-skip-intro', '1');
+    });
+
+    // ---- Theme ----
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.getElementById('theme-toggle');
+      const saved = localStorage.getItem('rg-theme') || 'dark';
+      html.dataset.theme = saved;
+
+      btn.addEventListener('click', () => {
+        const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+        html.dataset.theme = next;
+        localStorage.setItem('rg-theme', next);
+      });
+    })();
+
+    // ---- Form submit ----
     const WEBHOOK_URL = 'https://rotemgol.app.n8n.cloud/webhook/98a8380f-3c07-4af1-a46c-391316385a6b';
 
-    document.getElementById('discoveryForm').addEventListener('submit', async function(e) {
+    document.getElementById('discoveryForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const btn = document.getElementById('submitBtn');
+      const btn      = document.getElementById('submitBtn');
       const errorMsg = document.getElementById('errorMsg');
-      btn.disabled = true;
+      btn.disabled   = true;
       btn.textContent = 'Sending...';
       errorMsg.style.display = 'none';
 
       const formData = new FormData(this);
       const data = {};
-
       for (const [key, value] of formData.entries()) {
-        if (key === 'tools') {
-          if (!data.tools) data.tools = [];
-          data.tools.push(value);
-        } else {
-          data[key] = value;
-        }
+        data[key] = value;
       }
-
-      if (!data.tools) data.tools = [];
-
-      data.submitted_at = new Date().toISOString();
+      data.submitted_at  = new Date().toISOString();
       data.form_language = 'en';
-      data.form_version = '1.0';
+      data.form_version  = '2.0';
 
       try {
         await fetch(WEBHOOK_URL, {
@@ -611,7 +493,7 @@
       } catch (err) {
         errorMsg.style.display = 'block';
         btn.disabled = false;
-        btn.textContent = 'Submit Discovery Form';
+        btn.textContent = 'Send My Answers';
       }
     });
   </script>

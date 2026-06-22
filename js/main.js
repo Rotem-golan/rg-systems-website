@@ -5,6 +5,15 @@
   const iLogo   = document.getElementById('intro-logo');
   if (!overlay || !video) return;
 
+  // Skip intro when returning from the audit form
+  if (sessionStorage.getItem('rg-skip-intro')) {
+    sessionStorage.removeItem('rg-skip-intro');
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    overlay.remove();
+    return;
+  }
+
   document.body.style.overflow = 'hidden';
 
   function skip() {

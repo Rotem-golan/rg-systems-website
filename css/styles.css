@@ -113,8 +113,8 @@ nav, section, footer { position: relative; z-index: 1; }
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
+  font-weight: 700;
+  border-radius: 6px;
   cursor: pointer;
   transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
   border: 1px solid transparent;
@@ -126,13 +126,18 @@ nav, section, footer { position: relative; z-index: 1; }
 .btn-xl  { padding: 18px 44px; font-size: 17px; }
 .btn-full { width: 100%; text-align: center; }
 
+/* Dark mode: bright gold bg + dark text (legible on dark canvas) */
 .btn-primary { background: var(--gold); color: #09090a; border-color: var(--gold); }
 .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-1px); }
 
+/* Light mode: Button Gold (#5C4A0E) + white text per brand guidelines */
+[data-theme="light"] .btn-primary { background: #5C4A0E; color: #ffffff; border-color: #5C4A0E; }
+[data-theme="light"] .btn-primary:hover { background: #4a3a08; border-color: #4a3a08; }
+
 .btn-ghost { background: transparent; color: var(--text); border-color: rgba(255,255,255,0.12); }
 .btn-ghost:hover { border-color: var(--gold-border-s); color: var(--gold); }
-[data-theme="light"] .btn-ghost { border-color: rgba(0,0,0,0.15); }
-[data-theme="light"] .btn-ghost:hover { border-color: var(--gold-border-s); }
+[data-theme="light"] .btn-ghost { border-color: #EDE5D5; color: #6B6355; }
+[data-theme="light"] .btn-ghost:hover { border-color: var(--gold-border-s); color: var(--gold); }
 
 .btn-outline { background: transparent; color: var(--gold); border-color: var(--gold-border); }
 .btn-outline:hover { background: var(--gold-dim); border-color: var(--gold); }
@@ -394,9 +399,10 @@ nav, section, footer { position: relative; z-index: 1; }
 }
 
 .service-icon {
-  font-size: 32px;
   margin-bottom: 16px;
-  line-height: 1;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
 }
 
 .service-card h3 {
