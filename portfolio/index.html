@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Work | RG Systems</title>
+<meta name="description" content="Real automation systems built for real businesses. See what RG Systems has delivered — and what it meant in time, money, and clarity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ── TOKENS ── */
+  :root {
+    --bg: #080808;
+    --bg2: #0d0d0a;
+    --bg3: #131310;
+    --stat-bg: #05050a;
+    --border: rgba(255,255,255,0.05);
+    --accent: #c9a84c;
+    --accent-dim: rgba(201,168,76,0.10);
+    --accent-border: rgba(201,168,76,0.22);
+    --red: #c0392b;
+    --green: #4ade80;
+    --text: #f0efe8;
+    --muted: #848474;
+    --muted2: #b0afa8;
+    --max: 900px;
+    --pad: clamp(24px, 6vw, 80px);
+    --nav-h: 68px;
+  }
+  [data-theme="light"] {
+    --bg: #f2efe6;
+    --bg2: #faf8f2;
+    --bg3: #f4f1e8;
+    --stat-bg: #eae7de;
+    --border: rgba(0,0,0,0.09);
+    --accent: #7a5410;
+    --accent-dim: rgba(138,96,16,0.08);
+    --accent-border: rgba(138,96,16,0.3);
+    --red: #dc2626;
+    --green: #15803d;
+    --text: #1c1a10;
+    --muted: #58564a;
+    --muted2: #3a3830;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-top: var(--nav-h);
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAVBAR ── */
+  #navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 0 28px;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  #navbar.scrolled {
+    background: rgba(8,8,8,0.90);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 var(--border);
+  }
+  [data-theme="light"] #navbar.scrolled {
+    background: rgba(242,239,230,0.92);
+  }
+  .nav-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 17px; font-weight: 800;
+    letter-spacing: -0.01em; color: var(--text);
+  }
+  .logo-img { height: 30px; width: auto; }
+  .nav-links {
+    display: flex; align-items: center; gap: 30px;
+  }
+  .nav-links a:not(.btn) {
+    font-size: 14px; font-weight: 500;
+    color: var(--muted); transition: color 0.2s;
+  }
+  .nav-links a:not(.btn):hover { color: var(--text); }
+  .nav-links a.active { color: var(--accent); }
+  .theme-toggle {
+    display: flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: none; border: 1px solid var(--border);
+    cursor: pointer; color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { border-color: var(--accent-border); color: var(--accent); }
+  [data-theme="dark"]  .icon-sun  { display: block; }
+  [data-theme="dark"]  .icon-moon { display: none;  }
+  [data-theme="light"] .icon-sun  { display: none;  }
+  [data-theme="light"] .icon-moon { display: block; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif; font-weight: 700;
+    border-radius: 6px; cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
+    border: 1px solid transparent; white-space: nowrap; text-decoration: none;
+  }
+  .btn-sm { padding: 9px 20px; font-size: 13.5px; }
+  .btn-primary { background: var(--accent); color: #09090a; border-color: var(--accent); }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  [data-theme="light"] .btn-primary { background: #5C4A0E; color: #fff; border-color: #5C4A0E; }
+  [data-theme="light"] .btn-primary:hover { background: #4a3a08; }
+  .nav-toggle {
+    display: none; flex-direction: column;
+    justify-content: center; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 6px;
+  }
+  .nav-toggle span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── VERTICAL ACCENT LINE ── */
+  body::after {
+    content: '';
+    position: fixed; top: 0; right: clamp(14px,3vw,44px);
+    width: 1px; height: 100vh;
+    background: linear-gradient(to bottom, transparent 0%, rgba(201,168,76,0.06) 30%, rgba(201,168,76,0.12) 50%, rgba(201,168,76,0.06) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    border-bottom: 1px solid var(--border);
+    padding: clamp(40px,6vw,80px) var(--pad) clamp(28px,4vw,56px);
+    position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; top: -100px; left: -60px;
+    width: 500px; height: 400px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px; align-items: flex-end;
+  }
+  .header-eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent);
+    font-weight: 600; margin-bottom: 16px;
+  }
+  h1 {
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+    line-height: 1.06; letter-spacing: -0.03em;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .header-desc {
+    color: var(--muted2); font-size: 0.88rem;
+    line-height: 1.9; font-weight: 300;
+  }
+  .header-desc strong { color: var(--text); font-weight: 500; }
+
+  /* ── FILTER ── */
+  .filter-section {
+    border-bottom: 1px solid var(--border);
+    padding: clamp(24px,4vw,44px) var(--pad);
+  }
+  .filter-inner { max-width: var(--max); margin: 0 auto; }
+  .filter-question {
+    font-size: 1rem; font-weight: 700;
+    color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em;
+  }
+  .filter-hint {
+    font-size: 0.78rem; color: var(--muted);
+    font-weight: 300; margin-bottom: 20px;
+  }
+  .filter-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .filter-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 22px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg2);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; transition: all 0.18s;
+    white-space: nowrap;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+  }
+  .filter-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+  .filter-btn.active {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 4px 14px rgba(201,168,76,0.15);
+    transform: translateY(-1px);
+  }
+  .filter-btn .arrow { font-size: 0.75rem; opacity: 0.5; transition: opacity 0.18s, transform 0.18s; }
+  .filter-btn:hover .arrow, .filter-btn.active .arrow { opacity: 1; transform: translateX(2px); }
+  .filter-btn[data-cat="all"] {
+    background: transparent; color: var(--muted); box-shadow: none;
+    font-size: 0.78rem; padding: 11px 16px;
+  }
+  .filter-btn[data-cat="all"].active {
+    background: var(--bg3); color: var(--text);
+    border-color: var(--border); box-shadow: none;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-section { padding: clamp(28px,4vw,56px) var(--pad); }
+  .projects-inner { max-width: var(--max); margin: 0 auto; }
+
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 4px; background: var(--bg2);
+    margin-bottom: 6px; cursor: pointer;
+    transition: border-color 0.2s, opacity 0.3s, transform 0.2s;
+    overflow: hidden;
+  }
+  .project-card:hover { border-color: var(--accent-border); transform: translateY(-1px); }
+  .project-card.open { border-color: rgba(201,168,76,0.35); transform: none; }
+  .project-card.hidden { opacity: 0.15; pointer-events: none; transform: none; }
+
+  .card-header {
+    display: grid; grid-template-columns: 48px 1fr auto;
+    align-items: center; gap: clamp(12px,2vw,28px);
+    padding: clamp(16px,2.5vw,26px) clamp(16px,3vw,30px);
+    transition: background 0.2s;
+  }
+  .project-card:hover .card-header,
+  .project-card.open .card-header { background: rgba(255,255,255,0.015); }
+  [data-theme="light"] .project-card:hover .card-header,
+  [data-theme="light"] .project-card.open .card-header { background: rgba(0,0,0,0.02); }
+
+  .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em;
+  }
+  .card-info h2 {
+    font-size: clamp(0.95rem,1.8vw,1.2rem);
+    font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px;
+  }
+  .card-sub {
+    font-size: 0.73rem; color: var(--muted2); font-weight: 300;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .cat-badge {
+    font-size: 0.58rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600;
+    padding: 2px 7px; border-radius: 2px; border: 1px solid; white-space: nowrap;
+  }
+  .cat-badge.time    { color: #60a5fa; border-color: #60a5fa44; background: #60a5fa0d; }
+  .cat-badge.revenue { color: var(--green); border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.07); }
+  .cat-badge.structure { color: var(--accent); border-color: var(--accent-border); background: var(--accent-dim); }
+  [data-theme="light"] .cat-badge.time { color: #2563eb; border-color: #2563eb44; background: #2563eb0d; }
+  [data-theme="light"] .cat-badge.revenue { color: #15803d; border-color: rgba(21,128,61,0.3); background: rgba(21,128,61,0.07); }
+
+  .card-right { display: flex; align-items: center; gap: 16px; }
+  .card-metric { text-align: right; }
+  .card-metric-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1rem,2.2vw,1.4rem);
+    font-weight: 700; color: var(--accent); line-height: 1;
+  }
+  .card-metric-lbl { font-size: 0.62rem; color: var(--muted); margin-top: 3px; line-height: 1.2; }
+  .expand-icon {
+    width: 26px; height: 26px; border: 1px solid var(--border);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 1.1rem; font-weight: 300;
+    transition: all 0.3s; flex-shrink: 0;
+  }
+  .project-card.open .expand-icon {
+    border-color: var(--accent); color: var(--accent);
+    background: var(--accent-dim); transform: rotate(45deg);
+  }
+
+  /* ── CARD BODY ── */
+  .card-body { display: none; border-top: 1px solid var(--border); }
+  .card-body.open {
+    display: block;
+    animation: bodyIn 0.35s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  @keyframes bodyIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STAT BLOCK ── */
+  .stat-block {
+    display: grid; grid-template-columns: 1fr 60px 1fr;
+    align-items: center; background: var(--stat-bg);
+    border-bottom: 1px solid var(--border);
+    padding: clamp(22px,3vw,38px) clamp(18px,3vw,38px);
+  }
+  .stat-state {
+    font-size: 0.62rem; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 10px;
+  }
+  .stat-side.before .stat-state { color: var(--red); }
+  .stat-side.after  .stat-state { color: var(--green); }
+  .stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700; line-height: 1; margin-bottom: 10px;
+  }
+  .stat-side.before .stat-val { color: var(--red); }
+  .stat-side.after  .stat-val { color: var(--accent); text-shadow: 0 0 28px rgba(201,168,76,0.35); }
+  [data-theme="light"] .stat-side.after .stat-val { text-shadow: 0 0 16px rgba(122,84,16,0.2); }
+  .stat-desc { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.5; max-width: 280px; }
+  .stat-arrow { text-align: center; font-size: 1.2rem; color: var(--muted); opacity: 0.4; font-weight: 300; }
+
+  .card-body.open .stat-side.before { animation: statFade 0.4s ease 0.1s both; }
+  .card-body.open .stat-arrow       { animation: statFade 0.3s ease 0.32s both; }
+  .card-body.open .stat-side.after  { animation: statFade 0.4s ease 0.48s both; }
+  @keyframes statFade {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── VALUE BAR ── */
+  .value-bar {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px clamp(18px,3vw,38px);
+    background: rgba(74,222,128,0.05);
+    border-bottom: 1px solid rgba(74,222,128,0.12);
+  }
+  [data-theme="light"] .value-bar { background: rgba(21,128,61,0.06); border-color: rgba(21,128,61,0.16); }
+  .value-bar-icon { font-size: 0.85rem; line-height: 1.7; flex-shrink: 0; }
+  .value-bar-txt { font-size: 0.82rem; color: #a8d5b0; font-weight: 400; line-height: 1.65; }
+  .value-bar-txt strong { color: #4ade80; font-weight: 600; }
+  [data-theme="light"] .value-bar-txt { color: #2d5a3d; }
+  [data-theme="light"] .value-bar-txt strong { color: #15803d; }
+  .card-body.open .value-bar { animation: statFade 0.4s ease 0.65s both; }
+
+  /* ── BODY TEXT ── */
+  .body-text {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .body-cell { background: var(--bg3); padding: clamp(16px,2.5vw,24px); }
+  .cell-lbl {
+    font-size: 0.6rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent);
+    font-weight: 600; margin-bottom: 10px;
+  }
+  .cell-txt { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; font-weight: 300; }
+  .result-highlight {
+    display: inline-block; margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; color: var(--green);
+    font-weight: 700; letter-spacing: 0.02em;
+  }
+
+  /* ── CARD FOOTER ── */
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    padding: 12px clamp(16px,3vw,30px);
+    background: var(--bg3);
+  }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    font-size: 0.6rem; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 3px 9px;
+    border-radius: 2px; font-weight: 500;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+  .tag.first { border-color: var(--accent-border); color: var(--accent); background: var(--accent-dim); }
+  .visit-link {
+    font-size: 0.7rem; color: var(--accent);
+    text-decoration: none; font-weight: 500;
+    border: 1px solid var(--accent-border);
+    padding: 4px 12px; border-radius: 2px;
+    background: var(--accent-dim); transition: all 0.2s; white-space: nowrap;
+  }
+  .visit-link:hover { opacity: 0.8; }
+  .footer-right { display: flex; align-items: center; gap: 12px; }
+  .client-name { font-size: 0.7rem; color: var(--muted); font-weight: 400; font-style: italic; }
+
+  /* ── EMPTY STATE ── */
+  .no-match { display: none; text-align: center; padding: 60px 20px; color: var(--muted); font-size: 0.9rem; }
+  .no-match.visible { display: block; }
+
+  /* ── CTA ── */
+  .cta-section { border-top: 1px solid var(--border); padding: clamp(48px,7vw,88px) var(--pad); }
+  .cta-inner { max-width: 560px; margin: 0 auto; }
+  .cta-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 16px; }
+  .cta-heading { font-weight: 900; font-size: clamp(1.6rem,4vw,2.6rem); line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .cta-heading em { font-style: normal; color: var(--accent); }
+  .cta-body { color: var(--muted2); font-size: 0.9rem; line-height: 1.85; font-weight: 300; margin-bottom: 28px; }
+  .cta-btn {
+    display: inline-block; font-size: 0.88rem; font-weight: 700;
+    color: #09090a; text-decoration: none;
+    background: var(--accent); padding: 14px 36px;
+    border-radius: 6px; transition: all 0.2s;
+  }
+  [data-theme="light"] .cta-btn { background: #5C4A0E; color: #fff; }
+  .cta-btn:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(201,168,76,0.25); }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer { border-top: 1px solid var(--border); padding: 24px var(--pad); }
+  .footer-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 14px;
+  }
+  .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .footer-link { color: var(--muted2); font-size: 0.74rem; text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .header-inner { grid-template-columns: 1fr; gap: 20px; }
+    .card-header { grid-template-columns: 1fr auto; }
+    .card-num { display: none; }
+    .cat-badge { display: none; }
+    .body-text { grid-template-columns: 1fr; }
+    .stat-block { grid-template-columns: 1fr; gap: 20px; }
+    .stat-arrow { text-align: left; font-size: 1.5rem; }
+    .card-metric { display: none; }
+    .filter-btns { gap: 8px; }
+    .filter-btn { font-size: 0.78rem; padding: 9px 14px; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: var(--nav-h); left: 0; right: 0; background: rgba(8,8,8,0.96); padding: 20px 28px; gap: 16px; }
+    .nav-links.open { display: flex; }
+    [data-theme="light"] .nav-links { background: rgba(242,239,230,0.97); }
+    .nav-toggle { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo">
+      <img src="../assets/logo.png" alt="RG Systems logo" class="logo-img" onerror="this.style.display='none'">
+      RG Systems
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="../#process">How It Works</a>
+      <a href="../#services">What We Build</a>
+      <a href="../#qualify">Who It's For</a>
+      <a href="./" class="active">Our Work</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a href="../discovery-form.html" class="btn btn-primary btn-sm">Book a Call</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">RG Systems — Our Work</div>
+      <h1>Real Problems.<br>Real <em>Results.</em></h1>
+    </div>
+    <div class="header-desc">
+      Every system below started with a business owner doing something manually that should have been running itself.<br><br>
+      <strong>Pick what matters to you.</strong>
+    </div>
+  </div>
+</header>
+
+<!-- ── FILTER ── -->
+<div class="filter-section">
+  <div class="filter-inner">
+    <div class="filter-question">What's your problem right now?</div>
+    <div class="filter-hint">Pick what sounds like you. The relevant work will show.</div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-cat="all">Show everything</button>
+      <button class="filter-btn" data-cat="time">I want to save time on admin <span class="arrow">→</span></button>
+      <button class="filter-btn" data-cat="revenue">I'm losing money without knowing it <span class="arrow">→</span></button>
+      <button class="filter-btn" data-cat="structure">I need visibility into my numbers <span class="arrow">→</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJECTS ── -->
+<div class="projects-section">
+  <div class="projects-inner">
+    <div id="projects-list"></div>
+    <div class="no-match" id="no-match">No case studies in this category yet.</div>
+  </div>
+</div>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Work with Rotem</div>
+    <h2 class="cta-heading">What's costing you<br>money <em>right now?</em></h2>
+    <p class="cta-body">Tell me the problem. I'll listen, map it out, and tell you honestly whether automation makes sense, and what it would look like. No pitch. No templates. Just a straight conversation about your business.</p>
+    <a href="https://mail.google.com/mail/?view=cm&to=Rotemgol96@gmail.com&su=I%20want%20to%20talk%20about%20my%20business&body=Hi%20Rotem%2C%0A%0AHere%27s%20what%27s%20costing%20me%20time%3A%0A" target="_blank" rel="noopener" class="cta-btn">Start the conversation</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="page-footer">
+  <div class="footer-inner">
+    <a href="../" style="color:var(--muted);font-size:0.74rem;">← Back to RG Systems</a>
+    <div class="footer-links">
+      <a href="mailto:Rotemgol96@gmail.com" class="footer-link">Rotemgol96@gmail.com</a>
+      <a href="tel:+61421182528" class="footer-link">+61 421 182 528</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── THEME ──
+(function() {
+  const html = document.documentElement;
+  const saved = localStorage.getItem('rg-theme') || 'dark';
+  html.dataset.theme = saved;
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const html = document.documentElement;
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  localStorage.setItem('rg-theme', next);
+});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', function() {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+// ── HAMBURGER ──
+document.getElementById('nav-toggle').addEventListener('click', function() {
+  this.classList.toggle('active');
+  document.getElementById('nav-links').classList.toggle('open');
+  this.setAttribute('aria-expanded', this.classList.contains('active'));
+});
+
+// ── PROJECTS ──
+const projects = [
+  {
+    id: 'hoj',
+    name: 'Junk Removal Business',
+    realName: 'Hunks of Junk',
+    subtitle: 'Melbourne, AU',
+    website: 'https://hunksofjunk.com.au',
+    categories: ['time', 'revenue'],
+    metric: '12x',
+    metricLbl: 'more 5-star reviews',
+    statBefore: { val: '1–2', desc: 'Google reviews a month. Had to chase customers manually. Most of the time, nobody did.' },
+    statAfter:  { val: '12+', desc: 'reviews a month, requested automatically the moment a job is complete. The business looks like the obvious choice.' },
+    problem: 'The whole operation ran on WhatsApp and paper. No job tracking, invoices typed by hand, and 5-star reviews (the #1 driver of new bookings) were never asked for.',
+    system: 'Full ops CRM with job scheduling, invoicing, clock-in/out, and automated Google Review requests triggered the moment each job is marked complete.',
+    result: 'Reviews compounding. Credibility on Google growing every week. More inbound bookings, less chasing.',
+    resultHighlight: 'Reputation on autopilot',
+    valueNote: 'At <strong>$200+ a job</strong>, every booking driven by a new Google review goes straight to the bottom line. Reviews compound. So does the return.',
+    tags: ['CRM', 'Invoicing', 'Automation', 'Review Engine'],
+  },
+  {
+    id: 'mitry',
+    name: 'Cleaning Services Business',
+    realName: "Mitry's Cleaning",
+    subtitle: 'Sydney, AU',
+    website: 'https://mitryscleaning.com.au',
+    categories: ['revenue'],
+    metric: '2 sec',
+    metricLbl: 'to reply. Before the competitor even picks up.',
+    statBefore: { val: '4 hours', desc: 'average response time. The customer had already booked whoever called them first.' },
+    statAfter:  { val: '2 sec',   desc: "Mitry's is in their inbox before they even think about searching for another option. Job won." },
+    problem: 'Leads came in and sat for hours. By the time someone replied, the customer had already gone with whoever responded first. Revenue lost silently, every single day.',
+    system: 'Speed to Lead automation: personalised reply the moment an enquiry lands, 24/7, plus a CRM to track every lead from first touch to signed job.',
+    result: "First to respond = first to win the job. Mitry's is now the one calling back before the customer even starts comparing.",
+    resultHighlight: 'First in. Every time.',
+    valueNote: 'At <strong>$600 a job</strong>, every recovered lead is $600 in revenue that used to go straight to a competitor. Even one a week changes the month.',
+    tags: ['Speed to Lead', 'CRM', 'Automation'],
+  },
+  {
+    id: 'studio',
+    name: 'Photography Studio Franchise',
+    realName: 'Memory Block Studio',
+    subtitle: 'Melbourne, AU',
+    website: 'https://memoryblock-studio.com.au',
+    categories: ['revenue'],
+    metric: '88%',
+    metricLbl: 'of leads were going cold',
+    statBefore: { val: '88 leads', desc: 'out of every 100 went cold. Paid ads brought them in. No system converted them.' },
+    statAfter:  { val: '0 wasted', desc: 'every lead classified and followed up automatically. The ad spend finally earns its return.' },
+    problem: "Spending on ads, getting 100 leads a month, and converting 12. The other 88 weren't bad leads. Nobody was following up.",
+    system: 'Automated lead pipeline: classifies hot vs cold the moment an enquiry arrives, then triggers the right follow-up sequence. No manual sorting.',
+    result: 'Every lead touched. Ad spend earning. Sales team only deals with warm conversations.',
+    resultHighlight: 'Ad spend finally converting',
+    valueNote: 'Paid-for leads that go cold are the most expensive kind. Every one converted is revenue the business already paid to attract.',
+    tags: ['Lead Automation', 'Classification', 'Email Sequences'],
+  },
+  {
+    id: 'baked',
+    name: 'Wholesale Bakery',
+    realName: 'Baked for Sofia',
+    subtitle: 'Melbourne, AU',
+    website: 'https://www.bakedforsofia.com',
+    categories: ['revenue', 'structure'],
+    metric: 'Found it',
+    metricLbl: 'the money leak across 4 stores',
+    statBefore: { val: 'Blind',   desc: "to waste and margin loss across 4 stores. Just a gut feeling that something wasn't adding up." },
+    statAfter:  { val: 'Visible', desc: 'exactly which store, which product, which day is bleeding margin, and by how much.' },
+    problem: "Four stores, scattered spreadsheets, 3+ hours every Monday trying to piece together what happened last week. The leak was real. Management just couldn't see it.",
+    system: 'Weekly analytics pipeline that pulls data from all locations and delivers a clear, decision-ready report every Monday at 8am.',
+    result: "The leak became visible. Once you can see it, you can fix it. Management now acts on data, not gut feeling.",
+    resultHighlight: 'Stop guessing. Start fixing.',
+    valueNote: "Up to <strong>$12,000 a year</strong> in waste that was bleeding out unnoticed across locations. Now it's visible. Now it's fixable.",
+    tags: ['Data Analytics', 'Reporting', 'Waste Management'],
+  },
+  {
+    id: 'memblock',
+    name: 'National Franchise Network',
+    realName: 'Memory Block',
+    subtitle: '80+ Locations Worldwide',
+    website: 'https://memoryblock.com.au',
+    categories: ['structure', 'revenue'],
+    metric: '7',
+    metricLbl: 'recurring processes. Zero done by hand.',
+    statBefore: { val: 'Manual',    desc: '7 different recurring tasks managed by people across 80+ locations. Contracts expiring. Stock going untracked. Reports built from scratch. Franchise inquiries sitting in inboxes.' },
+    statAfter:  { val: 'Automated', desc: 'every process runs itself. Alerts fire, reports generate, stock updates, inquiries get handled. The network manages itself.' },
+    problem: '80+ franchise locations with no central operations system. Contracts expired unnoticed. Stock was tracked manually. Monthly reports took hours to build. Inbound franchise inquiries sat without a response. Seven different recurring tasks, all depending on someone remembering.',
+    system: 'A full operations brain built in n8n: inventory tracking, 7 automated alert types (contracts, holidays, deadlines), monthly per-location performance reports, and franchise inquiry handling. Plus a technical support system in development that answers printer troubleshooting questions at any hour instead of waking a technician.',
+    result: 'The entire network runs from one system. Every location gets the same standard of management. Nobody chases paperwork. Nobody misses a deadline. The business scales without adding headcount.',
+    resultHighlight: 'One system. 80+ locations. Zero manual.',
+    valueNote: 'Up to <strong>$13,000 a year</strong> in recovered admin hours and avoided exposure across contracts, stock, and franchise operations.',
+    tags: ['n8n Automations', 'Inventory', 'Franchise Ops', 'Alerts', 'Reporting'],
+  },
+  {
+    id: 'complex',
+    name: 'Personal Training Studio',
+    realName: 'COMPLEX Fitness',
+    subtitle: 'Melbourne, AU',
+    website: null,
+    categories: ['time', 'revenue'],
+    metric: '0',
+    metricLbl: 'sessions lost to friction',
+    statBefore: { val: '15 min', desc: 'of WhatsApp back-and-forth to book one session. Some clients gave up. Revenue walked out silently.' },
+    statAfter:  { val: 'Instant', desc: 'clients book themselves in 30 seconds. No friction, no conflicts, no lost sessions.' },
+    problem: 'Every session required 15 minutes of WhatsApp to confirm. Some clients gave up halfway through. Double bookings happened. Every bit of friction was costing income.',
+    system: 'Custom scheduling app: coach sets availability, clients self-book in real time. Conflict prevention built in. No back-and-forth, no confusion.',
+    result: 'Less friction = more sessions booked. Every session that used to fall through now converts.',
+    resultHighlight: 'Friction out. Revenue in.',
+    valueNote: 'For the first time, the business runs on real numbers. <strong>Cashflow is visible before the week starts</strong>. He knows exactly who is signed in, what\'s coming in, and where the gaps are.',
+    tags: ['Scheduling App', 'Supabase', 'React'],
+  },
+  {
+    id: 'jafi',
+    name: 'Non-Profit Organisation',
+    realName: 'Jewish Agency Australia',
+    subtitle: 'Melbourne, AU',
+    website: 'https://dynamic-raindrop-29b23f.netlify.app',
+    categories: ['structure'],
+    metric: '87',
+    metricLbl: 'inquiries. Zero lost.',
+    statBefore: { val: 'No system', desc: '87 campaign inquiries, one general inbox, no routing, no follow-up process. The team was overwhelmed.' },
+    statAfter:  { val: 'Organized', desc: 'every submission lands in the right place, gets acknowledged, and is tracked from first contact to resolution.' },
+    problem: 'A campaign ran, 87 people responded, and everything landed in a shared inbox with no structure behind it. No one knew who was handling what. Things slipped.',
+    system: 'Dedicated landing pages with automated intake routing. Every submission acknowledged instantly and tracked through a clear follow-up path. The team always knows where each person stands.',
+    result: 'The organization can now run campaigns knowing the back end will handle it. Nothing falls through. Every person who reaches out feels it.',
+    resultHighlight: 'From chaos to clarity.',
+    valueNote: 'For a non-profit, being organized is the product. Every person who reached out and actually heard back is a relationship that could turn into years of involvement.',
+    tags: ['Landing Pages', 'Intake Automation', 'CRM'],
+  },
+];
+
+const catLabels = { time: 'Save Time', revenue: 'Stop Losing Money', structure: 'Get Visibility' };
+
+function renderProjects() {
+  const list = document.getElementById('projects-list');
+  list.innerHTML = projects.map((p, i) => {
+    const badges = p.categories.map(c => `<span class="cat-badge ${c}">${catLabels[c]}</span>`).join('');
+    const websiteLink = p.website
+      ? `<a class="visit-link" href="${p.website}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Visit site →</a>`
+      : '';
+    return `
+      <div class="project-card" data-id="${p.id}" data-cats="${p.categories.join(',')}" data-idx="${i}" onclick="toggleCard(${i})">
+        <div class="card-header">
+          <div class="card-num">0${i+1}</div>
+          <div class="card-info">
+            <h2>${p.name}</h2>
+            <div class="card-sub"><span>${p.subtitle}</span>${badges}</div>
+          </div>
+          <div class="card-right">
+            <div class="card-metric">
+              <div class="card-metric-val">${p.metric}</div>
+              <div class="card-metric-lbl">${p.metricLbl}</div>
+            </div>
+            <div class="expand-icon">+</div>
+          </div>
+        </div>
+        <div class="card-body" id="body-${i}">
+          <div class="stat-block">
+            <div class="stat-side before">
+              <div class="stat-state">Before</div>
+              <div class="stat-val">${p.statBefore.val}</div>
+              <div class="stat-desc">${p.statBefore.desc}</div>
+            </div>
+            <div class="stat-arrow">→</div>
+            <div class="stat-side after">
+              <div class="stat-state">After</div>
+              <div class="stat-val">${p.statAfter.val}</div>
+              <div class="stat-desc">${p.statAfter.desc}</div>
+            </div>
+          </div>
+          ${p.valueNote ? `<div class="value-bar"><span class="value-bar-icon">$</span><span class="value-bar-txt">${p.valueNote}</span></div>` : ''}
+          <div class="body-text">
+            <div class="body-cell"><div class="cell-lbl">The Problem</div><div class="cell-txt">${p.problem}</div></div>
+            <div class="body-cell"><div class="cell-lbl">The System</div><div class="cell-txt">${p.system}</div></div>
+            <div class="body-cell"><div class="cell-lbl">The Result</div><div class="cell-txt">${p.result}</div><div class="result-highlight">${p.resultHighlight}</div></div>
+          </div>
+          <div class="card-footer">
+            <div class="tags">${p.tags.map((t,ti) => `<span class="tag${ti===0?' first':''}">${t}</span>`).join('')}</div>
+            <div class="footer-right">
+              ${p.realName ? `<span class="client-name">${p.realName}</span>` : ''}
+              ${websiteLink}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleCard(i) {
+  const card = document.querySelector(`[data-idx="${i}"]`);
+  const body = document.getElementById(`body-${i}`);
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.card-body.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) {
+    body.classList.add('open');
+    card.classList.add('open');
+    setTimeout(() => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top < 80) window.scrollTo({ top: window.scrollY + rect.top - 100, behavior: 'smooth' });
+    }, 100);
+  }
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card-body.open').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
+    let count = 0;
+    document.querySelectorAll('.project-card').forEach(card => {
+      const match = cat === 'all' || card.dataset.cats.includes(cat);
+      card.classList.toggle('hidden', !match);
+      if (match) count++;
+    });
+    document.getElementById('no-match').classList.toggle('visible', count === 0);
+  });
+});
+
+renderProjects();
+</script>
+</body>
+</html>
