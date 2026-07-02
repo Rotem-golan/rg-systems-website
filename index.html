@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -16,16 +16,8 @@
   <!-- Skip to main content (keyboard / screen reader) -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- ===================== INTRO ===================== -->
-  <div id="intro-overlay">
-    <video id="intro-video" autoplay muted playsinline preload="auto">
-      <source src="assets/rg-intro.mp4" type="video/mp4">
-    </video>
-    <img id="intro-logo" src="assets/logo.png" alt="">
-  </div>
-
-  <!-- Background video (looping, behind everything) -->
-  <video id="bg-video" autoplay muted loop playsinline></video>
+  <!-- Background video -->
+  <video id="bg-video" autoplay muted loop playsinline src="assets/rg-light.mp4"></video>
 
   <!-- ===================== NAVBAR ===================== -->
   <nav id="navbar" aria-label="Main navigation">
@@ -39,21 +31,7 @@
         <a href="#services">What We Build</a>
         <a href="#qualify">Who It's For</a>
         <a href="portfolio/">Our Work</a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-          <!-- Sun: visible in dark mode (click to go light) -->
-          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <!-- Moon: visible in light mode (click to go dark) -->
-          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
-        <a href="discovery-form.html" class="btn btn-primary btn-sm">Book a Call</a>
+        <a href="https://calendar.app.google/wafxS7mWYH6qLGsh7" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -65,25 +43,31 @@
 
   <!-- ===================== HERO ===================== -->
   <section id="hero">
-    <div class="hero-inner">
+    <div class="hero-inner hero-inner--personal">
       <div class="hero-content">
-        <p class="hero-eyebrow">Done-For-You AI Automation</p>
         <h1 class="hero-headline">
           Stop Doing<br>
           It Manually.<br>
           <span class="gold">Start Growing.</span>
         </h1>
-        <p class="hero-sub">
-          Your follow-ups send themselves. Emails get answered automatically.
-          Reports update in real time. We build the AI systems that replace manual work
-          so you can focus on what actually grows your business.
-          Most clients reclaim 30+ hours a month within the first 90 days.
-        </p>
+        <div class="hero-specialties">
+          <span class="spec-pill">Speed to Lead</span>
+          <span class="spec-pill">CRM &amp; Ops</span>
+          <span class="spec-pill">Data Visibility</span>
+          <span class="spec-pill">Scheduling Apps</span>
+        </div>
+        <div class="hero-bio">
+          <p>Most businesses aren't broken. They're running on habits instead of systems. I've been watching this pattern since I was 19, inside companies of every size. The tools are rarely the problem. The logic connecting them usually is.</p>
+          <p>So I start with an audit, not a pitch. Every business is different. Until I understand yours, I have nothing useful to build.</p>
+        </div>
         <div class="hero-ctas">
-          <a href="discovery-form.html" class="btn btn-primary btn-lg">Start Your Free Audit →</a>
+          <a href="discovery-form.html" class="btn btn-primary btn-lg">Start Your Free Audit &rarr;</a>
           <a href="#process" class="btn btn-ghost btn-lg">See How It Works</a>
         </div>
-        <p class="hero-note">30 minutes &nbsp;·&nbsp; Free &nbsp;·&nbsp; No commitment &nbsp;·&nbsp; Best for teams with 5+ employees</p>
+        <p class="hero-note">Under 10 minutes &nbsp;&middot;&nbsp; Free &nbsp;&middot;&nbsp; No commitment</p>
+      </div>
+      <div class="hero-portrait-col">
+        <img src="assets/rotem-headshot.jpeg" alt="Rotem Golan" class="hero-portrait">
       </div>
     </div>
   </section>
@@ -93,29 +77,29 @@
     <p class="ticker-label">Trusted by</p>
     <div class="ticker-wrap">
       <div class="ticker-track">
-        <span class="ticker-item">Memory Block</span>
+        <a class="ticker-item" href="https://memoryblock.com.au" target="_blank" rel="noopener">Memory Block</a>
         <span class="ticker-dot">◆</span>
-        <span class="ticker-item">Hunk Of Junk</span>
-        <span class="ticker-dot">◆</span>
-        <span class="ticker-item">Little Sister</span>
-        <span class="ticker-dot">◆</span>
-        <span class="ticker-item">Mitry's Cleaning</span>
-        <span class="ticker-dot">◆</span>
-        <span class="ticker-item">Complex Training</span>
-        <span class="ticker-dot">◆</span>
-        <span class="ticker-item">MB Photoshoot Studio</span>
-        <span class="ticker-dot">◆</span>
-        <span class="ticker-item">Memory Block</span>
-        <span class="ticker-dot">◆</span>
-        <span class="ticker-item">Hunk Of Junk</span>
+        <a class="ticker-item" href="https://hunksofjunk.com.au" target="_blank" rel="noopener">Hunk Of Junk</a>
         <span class="ticker-dot">◆</span>
         <span class="ticker-item">Little Sister</span>
         <span class="ticker-dot">◆</span>
-        <span class="ticker-item">Mitry's Cleaning</span>
+        <a class="ticker-item" href="https://mitryscleaning.com.au" target="_blank" rel="noopener">Mitry's Cleaning</a>
         <span class="ticker-dot">◆</span>
         <span class="ticker-item">Complex Training</span>
         <span class="ticker-dot">◆</span>
-        <span class="ticker-item">MB Photoshoot Studio</span>
+        <a class="ticker-item" href="https://memoryblock-studio.com.au" target="_blank" rel="noopener">MB Photoshoot Studio</a>
+        <span class="ticker-dot">◆</span>
+        <a class="ticker-item" href="https://memoryblock.com.au" target="_blank" rel="noopener">Memory Block</a>
+        <span class="ticker-dot">◆</span>
+        <a class="ticker-item" href="https://hunksofjunk.com.au" target="_blank" rel="noopener">Hunk Of Junk</a>
+        <span class="ticker-dot">◆</span>
+        <span class="ticker-item">Little Sister</span>
+        <span class="ticker-dot">◆</span>
+        <a class="ticker-item" href="https://mitryscleaning.com.au" target="_blank" rel="noopener">Mitry's Cleaning</a>
+        <span class="ticker-dot">◆</span>
+        <span class="ticker-item">Complex Training</span>
+        <span class="ticker-dot">◆</span>
+        <a class="ticker-item" href="https://memoryblock-studio.com.au" target="_blank" rel="noopener">MB Photoshoot Studio</a>
         <span class="ticker-dot">◆</span>
       </div>
     </div>
@@ -127,7 +111,7 @@
       <div class="section-header reveal">
         <p class="section-eyebrow">What We Build</p>
         <h2>Five systems that remove the most common bottlenecks.</h2>
-        <p class="section-sub">Every engagement is custom. These are the building blocks we use most.</p>
+        <p class="section-sub">Every business is different. These are the systems that solve the most common bottlenecks.</p>
       </div>
       <div class="services-grid">
 
@@ -162,6 +146,13 @@
         </div>
 
       </div>
+      <div style="text-align:center;margin-top:56px;">
+        <a href="portfolio/" class="btn btn-primary btn-xl" style="display:inline-flex;align-items:center;gap:12px;letter-spacing:0.01em;">
+          Check Our Portfolio
+          <span style="font-size:1.1em;">→</span>
+        </a>
+        <p style="margin-top:14px;font-size:13px;color:var(--text-dim);">7 client systems. Real before &amp; after numbers.</p>
+      </div>
     </div>
   </section>
 
@@ -180,7 +171,7 @@
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item reveal" style="transition-delay:0.2s">
-          <span class="stat-number" data-target="90">90</span>
+          <span class="stat-number" data-target="30">30</span>
           <span class="stat-label">days from first call to live automated systems</span>
         </div>
       </div>
@@ -309,23 +300,25 @@
   <section id="contact" class="section section-cta">
     <div class="container">
       <div class="cta-inner reveal">
-        <div class="cta-availability">
-          <span class="cta-dot"></span> Currently accepting new clients
+<h2>Two ways to<br><span class="gold">get started.</span></h2>
+        <p class="cta-sub">Pick what feels right. Either way, you'll leave knowing exactly what to fix first.</p>
+        <div class="cta-split">
+          <div class="cta-option">
+            <p class="cta-option-label">Self-serve</p>
+            <h3 class="cta-option-title">10-minute audit</h3>
+            <p class="cta-option-desc">Answer a few questions about your business. No call needed. You'll get a clear picture of your biggest manual bottleneck and what could run automatically.</p>
+            <a href="discovery-form.html" class="btn btn-primary btn-lg">Start the Audit &rarr;</a>
+            <p class="cta-option-note">10 minutes &nbsp;&middot;&nbsp; Free &nbsp;&middot;&nbsp; No commitment</p>
+          </div>
+          <div class="cta-split-divider"><span>or</span></div>
+          <div class="cta-option">
+            <p class="cta-option-label">Let's Talk</p>
+            <h3 class="cta-option-title">Free 30-min call</h3>
+            <p class="cta-option-desc">Tell me what's costing you time and money. I'll listen, ask the right questions, and tell you honestly what makes sense for your business. No pitch.</p>
+            <a href="https://calendar.app.google/wafxS7mWYH6qLGsh7" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Book a Free Call &rarr;</a>
+            <p class="cta-option-note">30 minutes &nbsp;&middot;&nbsp; Free &nbsp;&middot;&nbsp; No templates</p>
+          </div>
         </div>
-        <h2>Book your free<br><span class="gold">30-minute audit.</span></h2>
-        <p class="cta-sub">
-          We'll map your biggest manual bottleneck and show you exactly what
-          we'd automate: specific systems, realistic timeline, honest numbers.
-          No sales pitch. Just a plan.
-        </p>
-        <a href="discovery-form.html"
-           class="btn btn-primary btn-xl cta-btn"
-           aria-label="Start your free audit">
-          Start Your Free Audit →
-        </a>
-        <p class="cta-note">
-          Or email: <a href="mailto:rotemgol96@gmail.com" class="gold-link">rotemgol96@gmail.com</a>
-        </p>
       </div>
     </div>
   </section>
@@ -345,6 +338,7 @@
           <a href="#services">What We Build</a>
           <a href="#qualify">Who It's For</a>
           <a href="#contact">Contact</a>
+          <a href="https://www.linkedin.com/in/rotemgolan96" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
       <div class="footer-bottom">

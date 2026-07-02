@@ -43,10 +43,40 @@ html  { scroll-behavior: smooth; }
 body  {
   font-family: 'Inter', sans-serif;
   background: var(--bg);
-  background-image: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.04) 0%, transparent 60%);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* Animated background orbs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+body::before {
+  width: 780px; height: 780px;
+  top: -280px; left: -220px;
+  background: radial-gradient(circle, rgba(201,168,76,0.11) 0%, transparent 68%);
+  animation: orb-a 22s ease-in-out infinite alternate;
+}
+body::after {
+  width: 640px; height: 640px;
+  bottom: -200px; right: -180px;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 68%);
+  animation: orb-b 18s ease-in-out infinite alternate;
+}
+@keyframes orb-a {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(260px, 180px) scale(1.18); }
+}
+@keyframes orb-b {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-220px, -140px) scale(0.88); }
 }
 a   { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -95,7 +125,7 @@ ul  { list-style: none; }
   opacity: 0.70;
   transition: opacity 0.45s ease;
 }
-[data-theme="light"] #bg-video { opacity: 0.55; }
+[data-theme="light"] #bg-video { opacity: 0.18; }
 
 /* Everything above the video */
 nav, section, footer { position: relative; z-index: 1; }
@@ -764,8 +794,10 @@ footer {
   padding: 0 28px;
   letter-spacing: -0.01em;
   transition: color 0.2s;
+  text-decoration: none;
 }
-.ticker-item:hover { color: var(--text); }
+a.ticker-item:hover { color: var(--gold); cursor: pointer; }
+span.ticker-item:hover { color: var(--text); }
 
 .ticker-dot {
   color: var(--gold);
@@ -1303,4 +1335,177 @@ section,
 @media (max-width: 480px) {
   .hero-headline { font-size: clamp(38px, 12vw, 58px); }
   .stat-number   { font-size: clamp(32px, 9vw, 46px); }
+}
+
+/* ============================================================
+   HERO — PERSONAL BRAND LAYOUT
+   ============================================================ */
+.hero-inner--personal {
+  display: flex;
+  align-items: center;
+  gap: clamp(36px, 5vw, 72px);
+}
+.hero-inner--personal .hero-content {
+  max-width: none;
+  flex: 1;
+}
+.hero-portrait-col { flex-shrink: 0; width: 420px; }
+.hero-portrait {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  border: 3px solid var(--gold-border);
+  box-shadow: 0 8px 48px rgba(0,0,0,0.22);
+  display: block;
+}
+[data-theme="light"] .hero-portrait {
+  box-shadow: 0 8px 40px rgba(26,21,5,0.14);
+}
+.hero-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.spec-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--gold-border);
+  background: var(--gold-dim);
+  color: var(--gold);
+  white-space: nowrap;
+}
+.hero-diff {
+  border-left: 2px solid var(--gold-border-s);
+  padding-left: 16px;
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+/* ============================================================
+   CTA SPLIT — two-option layout
+   ============================================================ */
+.cta-split {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  gap: 0;
+  align-items: start;
+  text-align: left;
+  margin-top: 40px;
+}
+.cta-option {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+[data-theme="light"] .cta-option {
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(0,0,0,0.10);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.cta-option-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.cta-option-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+}
+.cta-option-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.72;
+  flex: 1;
+}
+.cta-option-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+.cta-split-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 80px;
+}
+.cta-split-divider span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .cta-split {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .cta-split-divider { padding-top: 0; }
+}
+
+.hero-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+  border-left: 2px solid var(--gold-border-s);
+  padding-left: 16px;
+}
+.hero-bio p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.78;
+}
+.hero-bio strong {
+  color: var(--text);
+  font-weight: 700;
+}
+/* Tablet: shrink photo, keep side-by-side */
+@media (max-width: 1080px) {
+  .hero-portrait-col { width: 320px; }
+}
+
+/* Tablet portrait: stack layout, center everything */
+@media (max-width: 860px) {
+  .hero-inner--personal {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-portrait-col {
+    width: 210px;
+    order: -1;
+  }
+  .hero-specialties { justify-content: center; }
+  .hero-bio { text-align: left; }
+  .hero-ctas { justify-content: center; flex-wrap: wrap; }
+  .hero-note { text-align: center; }
+}
+
+/* Mobile: tighten photo and card padding */
+@media (max-width: 480px) {
+  .hero-portrait-col { width: 155px; }
+  .hero-bio { padding-left: 12px; }
+  .cta-option { padding: 24px 18px; }
+  .cta-split-divider { display: none; }
+  /* Shrink orbs so they don't cause horizontal overflow on small screens */
+  body::before { width: 380px; height: 380px; top: -160px; left: -120px; }
+  body::after  { width: 300px; height: 300px; bottom: -120px; right: -100px; }
 }
